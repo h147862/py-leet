@@ -31,19 +31,25 @@
 # strs[i] consists of lowercase English letters.
 
 
+
+
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        tmp = {}
+       
+        group = {}
         for s in strs:
-            sortedItem = "".join(sorted(s))
-            if sortedItem not in tmp:
-                tmp[sortedItem] = [s]
+            k = ''
+            for c in sorted(list(s)):
+                k=k+c
+            if k not in group:
+                group[k] = [s]
             else:
-                tmp[sortedItem].append(s)
-        return list(tmp.values())
-        
+                group[k].append(s)
+        return list(group.values())
+
+
 if __name__ == '__main__':
     s = Solution()
-    t =  [""]
+    t =  ["eat","tea","tan","ate","nat","bat"]
     res = s.groupAnagrams(t)
     print(res)

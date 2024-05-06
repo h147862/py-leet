@@ -35,29 +35,19 @@
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
-        prefix = [0 for _ in range(len(nums))]
-        postfix=  [0 for _ in range(len(nums))]
-        for i in range(len(nums)):
-            j = len(nums) - i - 1
-            if i == 0:
-                prefix[i] = nums[i]
-                postfix[j] = nums[j]
-            else:
-                prefix[i]=nums[i] * prefix[i-1]
-                postfix[j] = nums[j] * postfix[j+1]
-        res = []
-        for i in range(len(nums)):
-            if i == 0:
-                res.append(postfix[i+1])
-            elif i == len(nums) -1:
-                res.append(prefix[i-1])
-            else:
-                res.append(prefix[i-1] * postfix[i+1])
+        l = 1
+        r = 1
+        res = [0] * len(nums) 
+        for idx in range(len(nums)-1,-1,-1):
+            res[idx] = l
+            l = l * nums[idx]
+        for idx in range(len(nums)):
+            res[idx] = res[idx] * r
+            r = r * nums[idx]
         return res
-        
 
 if __name__ == '__main__':
-    a =[4,3,2,1,2]
+    a =[1,2,3,4]
     s = Solution()
     res = s.productExceptSelf(a)
     print(res)
